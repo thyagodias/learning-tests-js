@@ -1,6 +1,6 @@
 import { convertWordToNumbers } from './wordInNumber'
 
-describe('Word in Number', () => {
+describe('Convert Word in Number', () => {
   it('deve retornar o número 0 ao converter o caractere _', () => {
     expect(convertWordToNumbers('_')).toBe(0)
   })
