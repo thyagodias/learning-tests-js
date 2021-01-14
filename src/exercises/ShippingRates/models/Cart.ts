@@ -22,12 +22,15 @@ export default class Cart {
     this.items.push({ product, amount })
   }
 
-  removeProduct (): void {
-    //
-  }
+  removeItem (productName: string): void {
+    const indexOfProduct = this.items.findIndex(item => item.product.name === productName)
 
-  getItems (): Item[] {
-    return this.items
+    if (indexOfProduct !== -1) {
+      this.items.splice(indexOfProduct, 1)
+      return
+    }
+
+    throw new Error("Product not found");
   }
 
   getTotalPrice (): number {
