@@ -40,11 +40,11 @@ export default class Cart {
     return price
   }
 
-  getAmountOfItems (): number {
-    let amountOfItems = 0
+  getAmountOfProducts (): number {
+    let amountOfProducts = 0
 
-    amountOfItems = this.items.reduce((amount, item) => amount + item.amount, 0)
-    return amountOfItems
+    amountOfProducts = this.items.reduce((amount, item) => amount + item.amount, 0)
+    return amountOfProducts
   }
 
 }
