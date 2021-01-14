@@ -77,6 +77,7 @@ describe('Cart', () => {
       sut.addProduct(product, 2)
 
       expect(sut.items.length).toBe(1)
+      expect(sut.items[0].amount).toBe(3)
     });
   });
 });
