@@ -97,4 +97,23 @@ describe('Cart', () => {
       expect(() => sut.removeItem('Product')).toThrowError('Product not found')
     });
   });
+
+  describe('Total de produtos', () => {
+    it('deve retornar 0 ao verificar total de produtos do carrinho', () => {
+      const sut = makeSut()
+
+      expect(sut.getAmountOfProducts()).toBe(0)
+    });
+
+    it('ao inserir dois produtos com quantidade 150 e 50 deve retornar 200 ao verificar a quantidade total de produtos', () => {
+      const sut = makeSut()
+
+      const firstProduct = new Product('First product', 100)
+      const secondProduct = new Product('Second product', 100)
+      sut.addProduct(firstProduct, 150)
+      sut.addProduct(secondProduct, 50)
+
+      expect(sut.getAmountOfProducts()).toBe(200)
+    });
+  });
 });
