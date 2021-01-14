@@ -12,6 +12,8 @@ export default class ShippingRatesService {
   calculateShippingRates = (cart: Cart) => {
     let shippingRate = 0
 
+    if (cart.items.length === 0) throw new Error("Cart is empty");
+
     if (cart.getTotalPrice() < 100) {
       shippingRate = shippingRate +
         this.correiosShippingService.getCorreiosShippingRates(cart.user.zipCode)
