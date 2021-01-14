@@ -12,7 +12,13 @@ export default class Cart {
   }
 
   addProduct (product: Product, amount: number): void {
-    // Se o produto já existir acrescentar só a quantidade
+    const indexOfProduct = this.items.findIndex(item => item.product.name === product.name)
+
+    if (indexOfProduct !== -1) {
+      this.items[indexOfProduct].amount += amount
+      return
+    }
+
     this.items.push({ product, amount })
   }
 
