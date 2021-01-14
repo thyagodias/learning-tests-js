@@ -80,4 +80,21 @@ describe('Cart', () => {
       expect(sut.items[0].amount).toBe(3)
     });
   });
+
+  describe('Remover item', () => {
+    it('deve remover um item do carrinho pelo nome', () => {
+      const sut = makeSut()
+
+      const product = new Product('Product', 100)
+      sut.addProduct(product, 1)
+      sut.removeProduct('Product')
+
+      expect(sut.items.length).toBe(0)
+    });
+
+    it('deve retornar um erro ao tentar remover um produto que não existe', () => {
+      const sut = makeSut()
+      expect(() => sut.removeProduct('Product')).toThrowError('Product not found')
+    });
+  });
 });
