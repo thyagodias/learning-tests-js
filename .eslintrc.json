@@ -12,7 +12,7 @@
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/method-signature-style": "off",
     "space-before-function-paren": [
-      "error",
+      true,
       "always"
     ]
   }
