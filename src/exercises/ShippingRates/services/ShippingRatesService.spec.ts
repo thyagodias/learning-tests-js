@@ -2,13 +2,14 @@ import ShippingRatesService from "../services/ShippingRatesService";
 import Cart from "../models/Cart";
 import User from "../models/User";
 import CorreiosService from "../services/CorreiosService";
+import Product from "../models/Product";
 
 
 
 const makeSut = () => {
-  const getCorreiosShippingRates = CorreiosService.prototype.getCorreiosShippingRates = jest.fn()
+  const mockFnGetCorreiosShippingRates = CorreiosService.prototype.getCorreiosShippingRates = jest.fn()
   // TODO fazer essa implementação ser uma HOF, para o caso de teste definir um retorno pro método
-  getCorreiosShippingRates.mockImplementationOnce(() => 0)
+  // getCorreiosShippingRates.mockImplementationOnce(() => 150)
   const mockedCorreiosService = new CorreiosService()
 
   const user = new User('Teste', '123')
@@ -17,22 +18,32 @@ const makeSut = () => {
   const shippingRatesService = new ShippingRatesService(mockedCorreiosService)
 
   return {
-    user, cart, mockedCorreiosService, shippingRatesService
+    user, cart, mockedCorreiosService, shippingRatesService, mockFnGetCorreiosShippingRates
   }
 }
 
 describe('Shipping Rates Service', () => {
 
-  describe('Chamadas para o serviço externo de cálculo de frete', () => {
+  describe('Chamadas para o serviço externo do correios para cálculo de frete', () => {
     it('o serviço externo do correios deve ser chamado quando o total do carrinho for 99', () => {
       const sut = makeSut()
+
+      const product = new Product('Product', 99)
+      sut.cart.addProduct(product, 1)
+
+      sut.mockFnGetCorreiosShippingRates.mockImplementation(() => 0)
+
       sut.shippingRatesService.calculateShippingRates(sut.cart)
       expect(sut.mockedCorreiosService.getCorreiosShippingRates).toHaveBeenCalled();
     });
 
     it('o serviço externo do correios NÃO deve ser chamado quando o total do carrinho for 100', () => {
       const sut = makeSut()
-      // mockar o retorno do total do carrinho
+
+      const product = new Product('Product', 100)
+      sut.cart.addProduct(product, 1)
+
+      sut.mockFnGetCorreiosShippingRates.mockImplementation(() => 0)
 
       sut.shippingRatesService.calculateShippingRates(sut.cart)
       expect(sut.mockedCorreiosService.getCorreiosShippingRates).not.toHaveBeenCalled();
@@ -40,15 +51,33 @@ describe('Shipping Rates Service', () => {
   });
 
   describe('Valores de envio', () => {
-    it('o valor do frete deve ser 0 para ', () => {
+    it('o valor do frete deve ser 150 para preço total igual a 99', () => {
       const sut = makeSut()
+
+      const product = new Product('Product', 99)
+      sut.cart.addProduct(product, 1)
+
+      sut.mockFnGetCorreiosShippingRates.mockImplementation(() => 150)
+
       const totalShippingRates = sut.shippingRatesService.calculateShippingRates(sut.cart)
-      expect(sut.mockedCorreiosService.getCorreiosShippingRates).toHaveBeenCalled();
+      expect(totalShippingRates).toBe(150);
     });
 
-    it('o valor de frete deve ser 0 se o carrinho estiver vazio', () => {
+    it('o valor do frete deve ser 0 para preço total igual a 100', () => {
       const sut = makeSut()
-      expect(sut.mockedCorreiosService.getCorreiosShippingRates(sut.cart.user.zipCode)).toBe(0)
+
+      const product = new Product('Product', 100)
+      sut.cart.addProduct(product, 1)
+
+      sut.mockFnGetCorreiosShippingRates.mockImplementation(() => 150)
+
+      const totalShippingRates = sut.shippingRatesService.calculateShippingRates(sut.cart)
+      expect(totalShippingRates).toBe(0);
+    });
+
+    it('deve retornar um erro o verificar o valor de frete de um carrinho vazio', () => {
+      const sut = makeSut()
+      expect(() => sut.shippingRatesService.calculateShippingRates(sut.cart)).toThrowError('Cart is empty')
     });
   });
 
