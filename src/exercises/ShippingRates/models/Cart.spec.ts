@@ -87,14 +87,14 @@ describe('Cart', () => {
 
       const product = new Product('Product', 100)
       sut.addProduct(product, 1)
-      sut.removeProduct('Product')
+      sut.removeItem('Product')
 
       expect(sut.items.length).toBe(0)
     });
 
     it('deve retornar um erro ao tentar remover um produto que não existe', () => {
       const sut = makeSut()
-      expect(() => sut.removeProduct('Product')).toThrowError('Product not found')
+      expect(() => sut.removeItem('Product')).toThrowError('Product not found')
     });
   });
 });
