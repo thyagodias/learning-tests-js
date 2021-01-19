@@ -1,7 +1,7 @@
 export const calculateMultipleBaseOnRuleFunction = (maxValue: number, rule: Function): number => {
   let counter = 0;
 
-  for (let i = 1; i < maxValue; i++) {
+  for (let i = 1; i < maxValue; i += 1) {
     if (rule(i)) {
       counter += i;
     }

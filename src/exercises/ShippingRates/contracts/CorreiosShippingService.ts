@@ -1,3 +1,3 @@
 export default interface CorreiosShippingService {
-  getCorreiosShippingRates (zipCode: string): number
+  getCorreiosShippingRates(zipCode: string): number
 }

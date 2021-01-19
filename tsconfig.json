@@ -5,6 +5,10 @@
     "lib": [
       "es6"
     ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "allowJs": true,
     "outDir": "./dist",
     "rootDir": "./src",
@@ -22,7 +26,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./src/controllers/*"
+        "./src/"
       ]
     }
   },

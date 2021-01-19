@@ -1,7 +1,7 @@
-import CorreiosShippingService from "../contracts/CorreiosShippingService";
+import CorreiosShippingService from '../contracts/CorreiosShippingService';
 
 export default class CorreiosService implements CorreiosShippingService {
-  getCorreiosShippingRates (zipCode: string) {
-    return 0
+  getCorreiosShippingRates(zipCode: string): number {
+    return 0;
   }
 }
