@@ -15,7 +15,5 @@
   "plugins": [
     "@typescript-eslint"
   ],
-  "rules": {
-    "max-len": "on"
-  }
+  "rules": {}
 }
