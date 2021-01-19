@@ -1,12 +1,13 @@
 export const calculatesSumOfSquaresOfDigits = (num: number): number => {
   const splitNumber = num.toString().split('');
-  const digits = splitNumber.map((number) => parseInt(number));
+  const digits = splitNumber.map((number) => parseInt(number, 10));
 
   let sum = 0;
 
-  for (const digit of digits) {
-    sum += Math.pow(digit, 2);
-  }
+  digits.forEach((digit) => {
+    sum += digit ** 2;
+  });
+
   return sum;
 };
 
