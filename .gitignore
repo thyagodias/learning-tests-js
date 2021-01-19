@@ -2,3 +2,4 @@ node_modules
 dist
 # stryker temp files
 .stryker-tmp
+.vscode
