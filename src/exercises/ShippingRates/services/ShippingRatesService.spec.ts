@@ -1,10 +1,16 @@
+import CorreiosShippingService from '../contracts/CorreiosShippingService';
 import Cart from '../models/Cart';
 import Product from '../models/Product';
 import User from '../models/User';
-import CorreiosService from './CorreiosService';
 import ShippingRatesService from './ShippingRatesService';
 
 const makeSut = () => {
+  class CorreiosService implements CorreiosShippingService {
+    getCorreiosShippingRates(zipCode: string): number {
+      return 0;
+    }
+  }
+
   const mockFnGetCorreiosShippingRates = CorreiosService.prototype.getCorreiosShippingRates = jest.fn();
 
   const mockedCorreiosService = new CorreiosService();
