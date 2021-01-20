@@ -3,3 +3,5 @@ dist
 # stryker temp files
 .stryker-tmp
 .vscode
+reports
+coverage
